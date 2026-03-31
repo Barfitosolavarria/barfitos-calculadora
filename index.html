@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barfitos Olavarría</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #0f0f0f;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.container { max-width: 400px; margin: auto; }
+
+.card {
+  background: #1c1c1c;
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+.orange {
+  background: linear-gradient(135deg, #ff7a00, #ff3c00);
+}
+
+.big { font-size: 32px; color: orange; }
+
+.result { font-size: 20px; margin-top: 10px; }
+
+.destacado {
+  font-size: 22px;
+  font-weight: bold;
+  color: #000;
+  margin-top: 10px;
+}
+
+.btn {
+  display: block;
+  margin-top: 15px;
+  padding: 16px;
+  border-radius: 15px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.whatsapp { background: #25D366; color: white; }
+.instagram { background: #E1306C; color: white; }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>BARFITOS 🐶</h1>
+<p>Alimentación natural en cubos</p>
+
+<div class="card">
+
+<label>Peso del perro (kg)</label>
+<input type="range" id="peso" min="1" max="50" value="10" oninput="calcular()">
+
+<div class="big" id="pesoValor">10 kg</div>
+
+<div class="result" id="resultado"></div>
+<div class="result" id="mensual"></div>
+
+</div>
+
+<div class="card orange">
+
+<h2>🔥 Bolsa Barfitos</h2>
+
+<div style="background:white;color:black;padding:15px;border-radius:15px;">
+<strong>120 cubos (3kg)</strong><br>
+$26.000<br>
+<span id="duracion"></span><br>
+<div class="destacado" id="recomendacion"></div>
+</div>
+
+<a id="btnWhats" class="btn whatsapp">
+Comprar ahora por WhatsApp 🔥
+</a>
+
+<a href="https://www.instagram.com/barfitos.olavarria?utm_source=qr&igsh=MmlldjNiY3RrYzZr" class="btn instagram">
+Ver Instagram
+</a>
+
+</div>
+
+</div>
+
+<script>
+function calcular() {
+
+  let peso = document.getElementById("peso").value;
+
+  document.getElementById("pesoValor").innerText = peso + " kg";
+
+  let cubos = peso;
+  let cubosMes = cubos * 30;
+  let bolsasMes = cubosMes / 120;
+  let dias = 120 / cubos;
+
+  document.getElementById("resultado").innerText =
+    "Dale " + cubos + " cubos por día 🐾";
+
+  document.getElementById("mensual").innerText =
+    "Necesita " + cubosMes + " cubos por mes";
+
+  document.getElementById("duracion").innerText =
+    "Te dura aprox " + dias.toFixed(1) + " días";
+
+  // recomendación redondeada
+  let bolsasRecomendadas = Math.ceil(bolsasMes);
+
+  document.getElementById("recomendacion").innerText =
+    "👉 Recomendado: " + bolsasRecomendadas + " bolsa(s) por mes";
+
+  let mensaje =
+  "Hola! Tengo un perro de " + peso + "kg 🐶\n" +
+  "Necesita " + cubos + " cubos por día.\n" +
+  "Son " + cubosMes + " cubos por mes.\n" +
+  "Voy a llevar " + bolsasRecomendadas + " bolsa(s).\n" +
+  "¿Tenés stock?";
+
+  let url = "https://wa.me/5492284660264?text=" + encodeURIComponent(mensaje);
+
+  document.getElementById("btnWhats").href = url;
+}
+
+calcular();
+</script>
+
+</body>
+  </html>
