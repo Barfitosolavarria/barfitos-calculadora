@@ -6,7 +6,9 @@ body{font-family:Arial;background:#f2f2f2;margin:0}
 .box{max-width:400px;margin:auto;background:#fff;padding:20px;border-radius:15px;margin-top:20px}
 input,select,button{width:100%;margin-top:10px;padding:12px;border-radius:10px;border:1px solid #ddd}
 button{background:#ff7a00;color:#fff;border:none;font-weight:bold}
+.btn-wsp{background:#25D366}
 h2{text-align:center}
+#res{margin-top:15px;text-align:center}
 </style>
 </head>
 <body><div class="box"><h2>Calculadora BARFITOS</h2><select id="animal">
@@ -21,7 +23,11 @@ h2{text-align:center}
 <option value="3">Activo</option>
 </select><button onclick="calc()">Calcular</button>
 
-<div id="res"></div></div><script>
+<div id="res"></div><button id="wsp" class="btn-wsp" style="display:none" onclick="irWsp()">
+Contactar por WhatsApp
+</button></div><script>
+var mensaje="";
+
 function calc(){
 
 var peso=parseFloat(document.getElementById("peso").value);
@@ -37,9 +43,9 @@ return;
 var porc;
 
 if(animal=="perro"){
-if(etapa=="cachorro"){porc=5;}else{porc=act;}
+porc=(etapa=="cachorro")?5:act;
 }else{
-if(etapa=="cachorro"){porc=6;}else{porc=3;}
+porc=(etapa=="cachorro")?6:3;
 }
 
 var gramos=peso*(porc/100)*1000;
@@ -53,6 +59,19 @@ document.getElementById("res").innerHTML=
 "<h3>"+bolsas+" bolsas por mes</h3>"+
 "<p>Total: $"+total+"</p>"+
 "<p>Plan mensual 15% OFF: $"+descuento+"</p>";
+
+mensaje =
+"Hola! Quiero info de BARFITOS 🐾%0A"+
+"Animal: "+animal+"%0A"+
+"Etapa: "+etapa+"%0A"+
+"Bolsas por mes: "+bolsas+"%0A"+
+"Total estimado: $"+descuento;
+
+document.getElementById("wsp").style.display="block";
+}
+
+function irWsp(){
+window.open("https://wa.me/5492284612612?text="+mensaje);
 }
 </script></body>
 </html>
