@@ -1,233 +1,58 @@
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html><html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calculadora BARFITOS</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f2f2f2;
-}
-
-.app {
-  max-width: 420px;
-  margin: auto;
-  padding: 15px;
-}
-
-.logo {
-  width: 180px;
-  display: block;
-  margin: 10px auto;
-}
-
-.subtitle {
-  text-align: center;
-  font-size: 14px;
-  color: #555;
-}
-
-.card {
-  background: white;
-  border-radius: 20px;
-  padding: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-}
-
-input, select {
-  width: 100%;
-  padding: 14px;
-  margin-top: 10px;
-  border-radius: 12px;
-  border: 1px solid #ddd;
-}
-
-button {
-  width: 100%;
-  padding: 16px;
-  border-radius: 14px;
-  border: none;
-  font-weight: bold;
-}
-
-.btn-main {
-  background: #ff7a00;
-  color: white;
-  margin-top: 15px;
-}
-
-.result {
-  display: none;
-  margin-top: 15px;
-  padding: 15px;
-  border-radius: 16px;
-  background: #fff4ec;
-  text-align: center;
-}
-
-.plan {
-  display: none;
-  margin-top: 15px;
-  padding: 15px;
-  border-radius: 16px;
-  background: white;
-  border: 2px solid #ff7a00;
-  text-align: center;
-}
-
-.badge {
-  background: #ff7a00;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 6px;
-  font-size: 12px;
-  display: inline-block;
-  margin-bottom: 8px;
-}
-
-.wsp-fixed {
-  position: fixed;
-  bottom: 15px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  max-width: 400px;
-  display: none;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.btn-wsp {
-  background: #25D366;
-  color: white;
-}
-
-.btn-wsp2 {
-  background: #128C7E;
-  color: white;
-}
+body{font-family:Arial;background:#f2f2f2;margin:0}
+.box{max-width:400px;margin:auto;background:#fff;padding:20px;border-radius:15px;margin-top:20px}
+input,select,button{width:100%;margin-top:10px;padding:12px;border-radius:10px;border:1px solid #ddd}
+button{background:#ff7a00;color:#fff;border:none;font-weight:bold}
+h2{text-align:center}
 </style>
 </head>
+<body><div class="box"><h2>Calculadora BARFITOS</h2><select id="animal">
+<option value="perro">Perro</option>
+<option value="gato">Gato</option>
+</select><select id="etapa">
+<option value="adulto">Adulto</option>
+<option value="cachorro">Cachorro</option>
+</select><input id="peso" type="number" placeholder="Peso en kg"><select id="actividad">
+<option value="2">Sedentario</option>
+<option value="2.5">Normal</option>
+<option value="3">Activo</option>
+</select><button onclick="calc()">Calcular</button>
 
-<body>
+<div id="res"></div></div><script>
+function calc(){
 
-<div class="app">
+var peso=parseFloat(document.getElementById("peso").value);
+var animal=document.getElementById("animal").value;
+var etapa=document.getElementById("etapa").value;
+var act=parseFloat(document.getElementById("actividad").value);
 
-<img src="file_0000000055e8720eb2e20cdbb0d5f248.png" class="logo">
-
-<div class="subtitle">
-Calculá cuántas bolsas necesita tu perro 🐾
-</div>
-
-<div class="card">
-
-<input type="number" id="peso" placeholder="Peso del perro (kg)">
-
-<select id="actividad">
-  <option value="2">Sedentario</option>
-  <option value="2.5" selected>Normal</option>
-  <option value="3">Activo</option>
-</select>
-
-<button class="btn-main" onclick="calcular()">Calcular</button>
-
-<div class="result" id="box">
-  <h2 id="bolsas"></h2>
-  <h2 id="precio"></h2>
-</div>
-
-<div class="plan" id="planBox">
-  <div class="badge">🔥 Plan mensual recomendado</div>
-  <h3 id="planBolsas"></h3>
-  <h3 id="planPrecio"></h3>
-  <p id="ahorro"></p>
-</div>
-
-</div>
-</div>
-
-<div class="wsp-fixed" id="wspBox">
-
-  <a id="wsp1" target="_blank">
-    <button class="btn-wsp">Comprar plan mensual</button>
-  </a>
-
-  <a id="wsp2" target="_blank">
-    <button class="btn-wsp2">Consultar</button>
-  </a>
-
-</div>
-
-<script>
-function calcular() {
-
-let peso = parseFloat(document.getElementById("peso").value);
-let porcentaje = parseFloat(document.getElementById("actividad").value);
-
-if (!peso || peso <= 0) {
-  alert("Ingresá un peso válido");
-  return;
+if(!peso||peso<=0){
+alert("Ingresá un peso válido");
+return;
 }
 
-// cálculo
-let gramos = peso * (porcentaje / 100) * 1000;
-let cubosMes = (gramos / 20) * 30;
-let bolsasExactas = cubosMes / 150;
+var porc;
 
-// redondeo recomendado
-let bolsas = Math.ceil(bolsasExactas);
-
-// precios
-let precioBolsa = 26000;
-let total = bolsas * precioBolsa;
-
-// descuento 15%
-let totalConDescuento = Math.round(total * 0.85);
-let ahorro = total - totalConDescuento;
-
-// mostrar
-document.getElementById("box").style.display = "block";
-document.getElementById("planBox").style.display = "block";
-
-// resultado
-document.getElementById("bolsas").innerText =
-  bolsas + " bolsas por mes";
-
-document.getElementById("precio").innerText =
-  "Total: $" + total;
-
-// plan mensual
-document.getElementById("planBolsas").innerText =
-  bolsas + " bolsas (plan mensual)";
-
-document.getElementById("planPrecio").innerText =
-  "Con 15% OFF: $" + totalConDescuento;
-
-document.getElementById("ahorro").innerText =
-  "Ahorrás $" + ahorro + " por mes";
-
-// mensaje WhatsApp
-let mensaje = "Hola! Quiero el plan mensual BARFITOS 🐾\n" +
-              "Necesito: " + bolsas + " bolsas por mes\n" +
-              "Total con descuento: $" + totalConDescuento;
-
-// botones
-document.getElementById("wsp1").href =
-  "https://wa.me/5492284612612?text=" + encodeURIComponent(mensaje);
-
-document.getElementById("wsp2").href =
-  "https://wa.me/5492284660264?text=" + encodeURIComponent(mensaje);
-
-// mostrar botones
-document.getElementById("wspBox").style.display = "flex";
-
+if(animal=="perro"){
+if(etapa=="cachorro"){porc=5;}else{porc=act;}
+}else{
+if(etapa=="cachorro"){porc=6;}else{porc=3;}
 }
-</script>
 
-</body>
+var gramos=peso*(porc/100)*1000;
+var cubos=(gramos/20)*30;
+var bolsas=Math.ceil(cubos/150);
+
+var total=bolsas*26000;
+var descuento=Math.round(total*0.85);
+
+document.getElementById("res").innerHTML=
+"<h3>"+bolsas+" bolsas por mes</h3>"+
+"<p>Total: $"+total+"</p>"+
+"<p>Plan mensual 15% OFF: $"+descuento+"</p>";
+}
+</script></body>
 </html>
