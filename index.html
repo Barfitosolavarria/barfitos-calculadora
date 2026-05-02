@@ -55,18 +55,29 @@ var bolsas=Math.ceil(cubos/150);
 var total=bolsas*26000;
 var descuento=Math.round(total*0.85);
 
-document.getElementById("res").innerHTML=
+// resultado base
+var resultado=
 "<h3>"+bolsas+" bolsas por mes</h3>"+
-"<p>Total: $"+total+"</p>"+
-"<p>Plan mensual 15% OFF: $"+descuento+"</p>";
+"<p>Total: $"+total+"</p>";
 
+// plan mensual solo desde 4 bolsas
+if(bolsas>=4){
+resultado += "<p><b>Plan mensual 15% OFF: $"+descuento+"</b></p>";
+}else{
+resultado += "<p style='color:#777'>Plan mensual disponible desde 4 bolsas</p>";
+}
+
+document.getElementById("res").innerHTML=resultado;
+
+// mensaje WhatsApp
 mensaje =
-"Hola! Quiero info de BARFITOS 🐾%0A"+
+"Hola! Quiero asesoramiento BARFITOS 🐾%0A"+
 "Animal: "+animal+"%0A"+
 "Etapa: "+etapa+"%0A"+
 "Bolsas por mes: "+bolsas+"%0A"+
-"Total estimado: $"+descuento;
+"Total: $"+total;
 
+// mostrar botón
 document.getElementById("wsp").style.display="block";
 }
 
